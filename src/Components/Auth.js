@@ -1,31 +1,59 @@
 import React, { Component } from "react";
+import axios from "axios"
+import { withRouter } from "react-router";
+
 
 class Auth extends Component {
   constructor(props) {
-    super(props)
-  this.state = {
-    username: "",
-    password: "" 
+    super(props);
+    this.state = {
+      username: "",
+      password: "",
+    };
   }
-  }
-  
-  render() {
-    return <div> Auth 
-    <input onChange={() =>
-      this.setState({
-        username: ""
-      })
-    }/>
-    <input onChange={ () =>
-      this.setState({
-        password: ""
-      })
-    }/>
-    <button>login</button>
-    <button>register</button>
-    </div>;
-  }
+  createUser = () => {
+    var body = {
+      username: this.state.username,
+      password: this.state.password
 
+    }
+    axios.post("http://localhost:4000/auth", body ).then((res) => {
+      this.props.history.push("/dashboard")
+      
+    })
+  };
+  render() {
+    return (
+      <div>
+        {" "}
+        Auth{" "}
+        <input
+          onChange={(event) =>
+            this.setState({
+              username: event.target.value
+            })
+          }
+        />{" "}
+        <input
+          onChange={(event) =>
+            this.setState({
+              password: event.target.value
+            })
+          }
+        />{" "}
+        <button> login </button>{" "}
+        <button
+          onClick={() => {
+            this.createUser();
+          }}
+        >
+          {" "}
+          register{" "}
+        </button>{" "}
+      </div>
+    );
+  }
 }
 
-export default Auth;
+export default withRouter(Auth) 
+

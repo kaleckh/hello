@@ -6,6 +6,8 @@ const PORT = 4000
 var bcrypt = require("bcrypt")
 var secret = "kale"
 var massive = require("massive")
+var cors = require("cors")
+app.use(cors())
 
 
 const { CONNECTION_STRING } = process.env

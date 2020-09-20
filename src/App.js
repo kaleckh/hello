@@ -1,11 +1,12 @@
 import React from "react";
 import "./App.css";
-import Nav from "./Components/Nav";
 import routes from "./routes";
+import Nav from "./Components/Nav";
 
 function App(props) {
   return (
     <div>
+      {" "}
       {routes}
       <Nav />
     </div>

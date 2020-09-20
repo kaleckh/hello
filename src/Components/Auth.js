@@ -1,7 +1,8 @@
 import React, { Component } from "react";
-import axios from "axios"
+import axios from "axios";
 import { withRouter } from "react-router";
-
+import {connect} from "react-redux";
+import { updateUser } from "../ducks/reducer";
 
 class Auth extends Component {
   constructor(props) {
@@ -11,16 +12,25 @@ class Auth extends Component {
       password: "",
     };
   }
+
+  login = () => {
+    var body = {
+      username: this.state.username,
+      password: this.state.password,
+    };
+    axios.post("http://localhost:4000/login", body).then((res) => {
+      this.props.history.push("/dashboard");
+    });
+  };
+
   createUser = () => {
     var body = {
       username: this.state.username,
-      password: this.state.password
-
-    }
-    axios.post("http://localhost:4000/auth", body ).then((res) => {
-      this.props.history.push("/dashboard")
-      
-    })
+      password: this.state.password,
+    };
+    axios.post("http://localhost:4000/auth", body).then((res) => {
+      this.props.history.push("/dashboard");
+    });
   };
   render() {
     return (
@@ -30,18 +40,25 @@ class Auth extends Component {
         <input
           onChange={(event) =>
             this.setState({
-              username: event.target.value
+              username: event.target.value,
             })
           }
         />{" "}
         <input
           onChange={(event) =>
             this.setState({
-              password: event.target.value
+              password: event.target.value,
             })
           }
         />{" "}
-        <button> login </button>{" "}
+        <button
+          onClick={() => {
+            this.login();
+          }}
+        >
+          {" "}
+          login{" "}
+        </button>{" "}
         <button
           onClick={() => {
             this.createUser();
@@ -55,5 +72,8 @@ class Auth extends Component {
   }
 }
 
-export default withRouter(Auth) 
-
+export default withRouter(
+  connect(null, {
+    updateUser,
+  })(Auth)
+);

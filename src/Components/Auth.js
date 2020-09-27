@@ -19,7 +19,10 @@ class Auth extends Component {
       password: this.state.password,
     };
     axios.post("http://localhost:4000/login", body).then((res) => {
+      this.props.updateUser(res.data.id,res.data.username,res.data.hash)
+      
       this.props.history.push("/dashboard");
+      
     });
   };
 

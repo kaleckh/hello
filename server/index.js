@@ -7,6 +7,7 @@ var bcrypt = require("bcrypt")
 var secret = "kale"
 var massive = require("massive")
 var cors = require("cors")
+const { query } = require("express")
 app.use(cors())
 
 
@@ -55,6 +56,14 @@ app.post("/login", (req, res) => {
                 not: "authorized"
             })
         }
+    })
+})
+
+app.get("/posts", (req, res) => {
+    var {userposts, search} = req.query
+    console.log(userposts)
+    res.json({
+        test: "kaka"
     })
 })
 

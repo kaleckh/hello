@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { connect } from "react-redux"
 
 class Dashboard extends Component {
   constructor(props) {
@@ -6,18 +7,6 @@ class Dashboard extends Component {
     this.state = {
       searchInput: "",
       myPosts: true,
-      posts: [
-        {
-          title: "asdf",
-          username: "kale",
-          profilePic: "asdf",
-        },
-        {
-          title: "asdf",
-          username: "kale",
-          profilePic: "asdf",
-        },
-      ],
     };
   }
 
@@ -66,11 +55,12 @@ class Dashboard extends Component {
           />
         </div>
         <div>
-          {this.state.posts.map((post) => {
+          {this.props.posts.map((post) => {
             return [
               <div>
-                <div> {post.profilePic}, </div>
-                <div> {post.title} </div>
+                <div> {post.image}, </div>
+                <div> {post.name} </div>
+                <div> {post.content} </div>
               </div>,
             ];
           })}
@@ -80,4 +70,17 @@ class Dashboard extends Component {
   }
 }
 
-export default Dashboard;
+
+
+function mapStateToProps(state) {
+  return {
+    posts: state.posts,
+    
+
+  };
+}
+
+export default connect(mapStateToProps)(Dashboard);
+
+
+

@@ -1,0 +1,1 @@
+INSERT INTO posts ( post_id, name, image, content ) VALUES ( setval('posts_post_id_seq', (SELECT MAX(post_id) FROM posts)+1), $1, $2, $3) RETURNING post_id, name, image, content;
